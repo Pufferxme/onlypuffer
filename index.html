@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>onlypuffer's</title>
+  <title>onlypuffer's - Zufällige 3er-Slideshow + Musik</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -12,108 +12,95 @@
       padding: 0;
       text-align: center;
     }
-    header {
-      background-color: #1e90ff;
-      color: white;
-      padding: 1.5em 0;
-    }
     main {
-      padding: 2em;
+      max-width: 800px;
+      margin: 2em auto;
     }
-    img {
-      max-width: 90%;
-      height: auto;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      margin-top: 1em;
+    .slideshow-row {
+      display: flex;
+      justify-content: center;
+      gap: 1em;
+      margin-bottom: 2em;
     }
-    footer {
-      background-color: #333;
-      color: white;
-      padding: 1em 0;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-    }
-    .slideshow-container {
-      max-width: 600px;
-      position: relative;
-      margin: auto;
-    }
-    .slides {
-      display: none;
-      width: 100%;
+    .slideshow-row img {
+      width: 30%;
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
-    .music-button {
+    .audio-controls {
       margin-top: 2em;
-      padding: 1em 2em;
-      font-size: 1.1em;
-      background-color: #1e90ff;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    }
+    .volume-slider {
+      width: 200px;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Willkommen bei onlypuffer's</h1>
-    <p>Deine zentrale Anlaufstelle für alles rund um Puffer und mehr!</p>
-  </header>
-
   <main>
-    <p>Diese Webseite wurde von MR.Puffer erstellt.</p>
-    <p>Hier siehst du einen echten Pufferspeicher in freier Wildbahn:</p>
+    <h1>Zufällige Bilder-Slideshow</h1>
 
-    <div class="slideshow-container">
-      <img class="slides" src="pufferspeicher.png" alt="Pufferspeicher" />
-      <img class="slides" src="Puffer1.png.jpg" alt="Puffer 1" />
-      <img class="slides" src="Puffer2.png.jpg" alt="Puffer 2" />
-      <img class="slides" src="Puffer3.png.jpg" alt="Puffer 3" />
-      <img class="slides" src="wasser1.jpg" alt="wasser 1" />
-      <img class="slides" src="wasser2.jpg" alt="wasser 2" />
-      <img class="slides" src="wasser3.jpg" alt="wasser 3" />
+    <div class="slideshow-row" id="slideshow1"></div>
+    <div class="slideshow-row" id="slideshow2"></div>
+
+    <div class="audio-controls">
+      <audio id="bg-music" autoplay loop>
+        <source src="dein-sound.mp3" type="audio/mpeg" />
+        Dein Browser unterstützt kein Audio.
+      </audio>
+      <label for="volume">🎵 Lautstärke:</label>
+      <input type="range" id="volume" class="volume-slider" min="0" max="1" step="0.01" value="0.5" />
     </div>
-
-    <button class="music-button" id="musicBtn" onclick="startMusic()">🎵 Musik starten</button>
   </main>
 
-  <audio id="bgmusic" loop>
-    <source src="https://www.bensound.com/bensound-music/bensound-epic.mp3" type="audio/mpeg" />
-    Dein Browser unterstützt kein Audio.
-  </audio>
-
-  <footer>
-    © 2025 onlypuffer's
-  </footer>
-
   <script>
-    // Diashow starten
-    let slideIndex = 0;
-    showSlides();
-    function showSlides() {
-      let slides = document.getElementsByClassName("slides");
-      for (let i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-      }
-      slideIndex++;
-      if (slideIndex > slides.length) {
-        slideIndex = 1;
-      }
-      slides[slideIndex - 1].style.display = "block";
-      setTimeout(showSlides, 3000);
+    const images1 = [
+      "pufferspeicher.png",
+      "Puffer1.png.jpg",
+      "Puffer2.png.jpg",
+      "Puffer3.png.jpg",
+
+    ];
+
+    const images2 = [
+      "wasser1.jpg",
+      "wasser2.jpg",
+      "wasser3.jpg",
+
+    ];
+
+    function getRandomImages(arr, count) {
+      const shuffled = arr.slice().sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, count);
     }
 
-    // Musik per Klick starten
-    function startMusic() {
-      const audio = document.getElementById("bgmusic");
-      audio.play();
-      document.getElementById("musicBtn").style.display = "none";
+    function showRandomImages(containerId, images) {
+      const container = document.getElementById(containerId);
+      const selectedImages = getRandomImages(images, 3);
+      container.innerHTML = "";
+      selectedImages.forEach(src => {
+        const img = document.createElement("img");
+        img.src = src;
+        img.alt = "Pufferbild";
+        container.appendChild(img);
+      });
     }
+
+    function startSlideshows() {
+      showRandomImages("slideshow1", images1);
+      showRandomImages("slideshow2", images2);
+    }
+
+    // Starte Slideshow
+    startSlideshows();
+    setInterval(startSlideshows, 4000);
+
+    // Lautstärkeregler
+    const audio = document.getElementById("bg-music");
+    const volumeSlider = document.getElementById("volume");
+
+    volumeSlider.addEventListener("input", () => {
+      audio.volume = volumeSlider.value;
+    });
   </script>
 </body>
 </html>
