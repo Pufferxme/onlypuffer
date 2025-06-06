@@ -33,6 +33,19 @@
     .volume-slider {
       width: 200px;
     }
+    button {
+      padding: 0.5em 1em;
+      font-size: 1em;
+      border-radius: 8px;
+      border: none;
+      background-color: #1e90ff;
+      color: white;
+      cursor: pointer;
+      margin-bottom: 1em;
+    }
+    button:hover {
+      background-color: #0d6efd;
+    }
   </style>
 </head>
 <body>
@@ -45,11 +58,12 @@
     <div class="slideshow-row" id="slideshow2"></div>
 
     <div class="audio-controls">
-      <audio id="bgmusic" autoplay loop>
-        <source src="https://www.bensound.com/bensound-music/bensound-epic.mp3" type="audio/mpeg" />
+      <button onclick="playMusic()">🎵 Musik starten</button><br/>
+      <audio id="bgmusic" loop>
+        <source src="https://cdn.pixabay.com/audio/2022/03/16/audio_dcf56b1dcd.mp3" type="audio/mpeg" />
         Dein Browser unterstützt kein Audio.
       </audio>
-      <label for="volume">🎵 Lautstärke:</label>
+      <label for="volume">🔊 Lautstärke:</label>
       <input type="range" id="volume" class="volume-slider" min="0" max="1" step="0.01" value="0.5" />
     </div>
   </main>
@@ -65,7 +79,7 @@
     const images2 = [
       "wasser1.jpg",
       "wasser2.jpg",
-      "wasser3.jpg",
+      "wasser3.jpg"
     ];
 
     function getRandomImages(arr, count) {
@@ -90,7 +104,7 @@
       showRandomImages("slideshow2", images2);
     }
 
-    // Start
+    // Slideshow starten
     startSlideshows();
     setInterval(startSlideshows, 4000);
 
@@ -98,12 +112,20 @@
     const bgmusic = document.getElementById("bgmusic");
     const volumeSlider = document.getElementById("volume");
 
-    // Setze Anfangslautstärke
     bgmusic.volume = 0.5;
 
     volumeSlider.addEventListener("input", () => {
       bgmusic.volume = volumeSlider.value;
     });
+
+    function playMusic() {
+      bgmusic.play().catch(err => {
+        alert("Musik konnte nicht abgespielt werden: " + err.message);
+      });
+    }
+  </script>
+</body>
+</html>
   </script>
 </body>
 </html>
