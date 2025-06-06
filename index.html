@@ -46,6 +46,17 @@
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
+    .music-button {
+      margin-top: 2em;
+      padding: 1em 2em;
+      font-size: 1.1em;
+      background-color: #1e90ff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    }
   </style>
 </head>
 <body>
@@ -64,10 +75,11 @@
       <img class="slides" src="Puffer2.png.jpg" alt="Puffer 2" />
       <img class="slides" src="Puffer3.png.jpg" alt="Puffer 3" />
     </div>
+
+    <button class="music-button" onclick="startMusic()">🎵 Musik starten</button>
   </main>
 
-  <!-- 🎵 Dramatische Hintergrundmusik -->
-  <audio autoplay loop>
+  <audio id="bgmusic" loop>
     <source src="https://cdn.pixabay.com/audio/2022/03/04/audio_a8ef5cb368.mp3" type="audio/mpeg" />
     Dein Browser unterstützt kein Audio.
   </audio>
@@ -77,9 +89,9 @@
   </footer>
 
   <script>
+    // Diashow starten
     let slideIndex = 0;
     showSlides();
-
     function showSlides() {
       let slides = document.getElementsByClassName("slides");
       for (let i = 0; i < slides.length; i++) {
@@ -90,8 +102,26 @@
         slideIndex = 1;
       }
       slides[slideIndex - 1].style.display = "block";
-      setTimeout(showSlides, 3000); // Wechselt alle 3 Sekunden
+      setTimeout(showSlides, 3000);
     }
+
+    // Musikstart-Funktion (für mobile Browser per Klick)
+    function startMusic() {
+      const audio = document.getElementById("bgmusic");
+      audio.play();
+    }
+
+    // Autoplay auf Desktop (falls erlaubt)
+    window.addEventListener("load", () => {
+      const audio = document.getElementById("bgmusic");
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          // Autoplay wurde blockiert – der Button muss verwendet werden
+          console.log("Autoplay blockiert – bitte auf 'Musik starten' klicken.");
+        });
+      }
+    });
   </script>
 </body>
 </html>
