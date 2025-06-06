@@ -58,7 +58,7 @@
     <div class="slideshow-row" id="slideshow2"></div>
 
     <div class="audio-controls">
-      <button onclick="playMusic()">🎵 Musik starten</button><br/>
+      <button id="playBtn" onclick="playMusic()">🎵 Musik starten</button><br/>
       <audio id="bgmusic" loop>
         <source src="https://cdn.pixabay.com/audio/2022/03/16/audio_dcf56b1dcd.mp3" type="audio/mpeg" />
         Dein Browser unterstützt kein Audio.
@@ -104,13 +104,14 @@
       showRandomImages("slideshow2", images2);
     }
 
-    // Slideshow starten
+    // Start Slideshows
     startSlideshows();
     setInterval(startSlideshows, 4000);
 
     // Musiksteuerung
     const bgmusic = document.getElementById("bgmusic");
     const volumeSlider = document.getElementById("volume");
+    const playBtn = document.getElementById("playBtn");
 
     bgmusic.volume = 0.5;
 
@@ -119,13 +120,12 @@
     });
 
     function playMusic() {
-      bgmusic.play().catch(err => {
-        alert("Musik konnte nicht abgespielt werden: " + err.message);
+      bgmusic.play().then(() => {
+        playBtn.style.display = "none"; // Verstecke den Button
+      }).catch(err => {
+        alert("Musik konnte nicht gestartet werden: " + err.message);
       });
     }
-  </script>
-</body>
-</html>
   </script>
 </body>
 </html>
