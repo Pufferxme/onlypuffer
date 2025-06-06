@@ -1,9 +1,9 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>onlypuffer's - Zufällige 3er-Slideshow + Musik</title>
+  <title>onlypuffer's - Slideshow mit Musik</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -37,14 +37,16 @@
 </head>
 <body>
   <main>
-    <h1>Zufällige Bilder-Slideshow</h1>
+    <h1>Willkommen bei onlypuffer's</h1>
+    <p>Diese Webseite wurde von MR.Puffer erstellt.</p>
+    <p>Hier siehst du eine doppelte Zufalls-Slideshow und epische Musik!</p>
 
     <div class="slideshow-row" id="slideshow1"></div>
     <div class="slideshow-row" id="slideshow2"></div>
 
     <div class="audio-controls">
-      <audio id="bg-music" autoplay loop>
-        <source src="dein-sound.mp3" type="audio/mpeg" />
+      <audio id="bgmusic" autoplay loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-epic.mp3" type="audio/mpeg" />
         Dein Browser unterstützt kein Audio.
       </audio>
       <label for="volume">🎵 Lautstärke:</label>
@@ -57,15 +59,13 @@
       "pufferspeicher.png",
       "Puffer1.png.jpg",
       "Puffer2.png.jpg",
-      "Puffer3.png.jpg",
-
+      "Puffer3.png.jpg"
     ];
 
     const images2 = [
       "wasser1.jpg",
       "wasser2.jpg",
       "wasser3.jpg",
-
     ];
 
     function getRandomImages(arr, count) {
@@ -90,16 +90,19 @@
       showRandomImages("slideshow2", images2);
     }
 
-    // Starte Slideshow
+    // Start
     startSlideshows();
     setInterval(startSlideshows, 4000);
 
-    // Lautstärkeregler
-    const audio = document.getElementById("bg-music");
+    // Musiksteuerung
+    const bgmusic = document.getElementById("bgmusic");
     const volumeSlider = document.getElementById("volume");
 
+    // Setze Anfangslautstärke
+    bgmusic.volume = 0.5;
+
     volumeSlider.addEventListener("input", () => {
-      audio.volume = volumeSlider.value;
+      bgmusic.volume = volumeSlider.value;
     });
   </script>
 </body>
