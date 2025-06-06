@@ -30,9 +30,6 @@
     .audio-controls {
       margin-top: 2em;
     }
-    .volume-slider {
-      width: 200px;
-    }
     button {
       padding: 0.5em 1em;
       font-size: 1em;
@@ -51,7 +48,7 @@
 <body>
   <main>
     <h1>Willkommen bei onlypuffer's</h1>
-    <p>Diese Webseite wurde von Mr.Puffer erstellt.</p>
+    <p>Diese Webseite wurde von MR.Puffer erstellt.</p>
     <p>Hier siehst du eine doppelte Zufalls-Slideshow und epische Musik!</p>
 
     <div class="slideshow-row" id="slideshow1"></div>
@@ -63,8 +60,6 @@
         <source src="https://cdn.pixabay.com/audio/2022/03/16/audio_dcf56b1dcd.mp3" type="audio/mpeg">
         Dein Browser unterstützt kein Audio.
       </audio>
-      <label for="volume">🔊 Lautstärke:</label>
-      <input type="range" id="volume" class="volume-slider" min="0" max="1" step="0.01" value="0.5" />
     </div>
   </main>
 
@@ -98,14 +93,9 @@
     setInterval(startSlideshows, 4000);
 
     const bgmusic = document.getElementById("bgmusic");
-    const volumeSlider = document.getElementById("volume");
     const playBtn = document.getElementById("playBtn");
 
     bgmusic.volume = 0.5;
-
-    volumeSlider.addEventListener("input", () => {
-      bgmusic.volume = volumeSlider.value;
-    });
 
     playBtn.addEventListener("click", async () => {
       try {
