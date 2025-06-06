@@ -35,6 +35,17 @@
       bottom: 0;
       width: 100%;
     }
+    .slideshow-container {
+      max-width: 600px;
+      position: relative;
+      margin: auto;
+    }
+    .slides {
+      display: none;
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
   </style>
 </head>
 <body>
@@ -42,50 +53,45 @@
     <h1>Willkommen bei onlypuffer's</h1>
     <p>Deine zentrale Anlaufstelle für alles rund um Puffer und mehr!</p>
   </header>
+
   <main>
     <p>Diese Webseite wurde von MR.Puffer erstellt.</p>
     <p>Hier siehst du einen echten Pufferspeicher in freier Wildbahn:</p>
-    <style>
-  .slideshow-container {
-    max-width: 600px;
-    position: relative;
-    margin: auto;
-  }
-  .slides {
-    display: none;
-    width: 100%;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  }
-</style>
 
-<div class="slideshow-container">
-  <img class="slides" src="pufferspeicher.png" alt="Pufferspeicher" />
-  <img class="slides" src="Puffer1.png.jpg" alt="Puffer 1" />
-  <img class="slides" src="Puffer2.png.jpg" alt="Puffer 2" />
-  <img class="slides" src="Puffer3.png.jpg" alt="Puffer 3" />
-</div>
-
-<script>
-  let slideIndex = 0;
-  showSlides();
-
-  function showSlides() {
-    let slides = document.getElementsByClassName("slides");
-    for (let i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";
-    }
-    slideIndex++;
-    if (slideIndex > slides.length) {
-      slideIndex = 1;
-    }
-    slides[slideIndex - 1].style.display = "block";
-    setTimeout(showSlides, 3000); // Wechselt alle 3000 ms = 3 Sekunden
-  }
-</script>
+    <div class="slideshow-container">
+      <img class="slides" src="pufferspeicher.png" alt="Pufferspeicher" />
+      <img class="slides" src="Puffer1.png.jpg" alt="Puffer 1" />
+      <img class="slides" src="Puffer2.png.jpg" alt="Puffer 2" />
+      <img class="slides" src="Puffer3.png.jpg" alt="Puffer 3" />
+    </div>
   </main>
+
+  <!-- 🎵 Dramatische Hintergrundmusik -->
+  <audio autoplay loop>
+    <source src="https://cdn.pixabay.com/audio/2022/03/04/audio_a8ef5cb368.mp3" type="audio/mpeg" />
+    Dein Browser unterstützt kein Audio.
+  </audio>
+
   <footer>
     © 2025 onlypuffer's
   </footer>
+
+  <script>
+    let slideIndex = 0;
+    showSlides();
+
+    function showSlides() {
+      let slides = document.getElementsByClassName("slides");
+      for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      slideIndex++;
+      if (slideIndex > slides.length) {
+        slideIndex = 1;
+      }
+      slides[slideIndex - 1].style.display = "block";
+      setTimeout(showSlides, 3000); // Wechselt alle 3 Sekunden
+    }
+  </script>
 </body>
 </html>
