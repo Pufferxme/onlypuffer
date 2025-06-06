@@ -66,7 +66,7 @@
   </header>
 
   <main>
-    <p>Diese Webseite wurde von Mr.Puffer erstellt.</p>
+    <p>Diese Webseite wurde von MR.Pufferx erstellt.</p>
     <p>Hier siehst du einen echten Pufferspeicher in freier Wildbahn:</p>
 
     <div class="slideshow-container">
@@ -76,7 +76,7 @@
       <img class="slides" src="Puffer3.png.jpg" alt="Puffer 3" />
     </div>
 
-    <button class="music-button" onclick="startMusic()">🎵 Musik starten</button>
+    <button class="music-button" id="musicBtn" onclick="startMusic()">🎵 Musik starten</button>
   </main>
 
   <audio id="bgmusic" loop>
@@ -105,23 +105,13 @@
       setTimeout(showSlides, 3000);
     }
 
-    // Musikstart-Funktion (für mobile Browser per Klick)
+    // Musik per Klick starten
     function startMusic() {
       const audio = document.getElementById("bgmusic");
       audio.play();
+      // Button ausblenden, wenn Musik läuft
+      document.getElementById("musicBtn").style.display = "none";
     }
-
-    // Autoplay auf Desktop (falls erlaubt)
-    window.addEventListener("load", () => {
-      const audio = document.getElementById("bgmusic");
-      const playPromise = audio.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(error => {
-          // Autoplay wurde blockiert – der Button muss verwendet werden
-          console.log("Autoplay blockiert – bitte auf 'Musik starten' klicken.");
-        });
-      }
-    });
   </script>
 </body>
 </html>
